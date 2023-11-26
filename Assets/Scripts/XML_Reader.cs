@@ -10,7 +10,9 @@ public class XML_Reader : MonoBehaviour
     // tableau qui contient les questions
     public Question[] listQuestions;
 
-    // fonction qui permet de parser le fichier XML et de remplir le tableau
+    /// <summary>
+    /// parser le fichier XMl et remplir le tableau de question
+    /// <summary>
     public void InitListQuestion()
     {
         // Chemin du fichier XML
@@ -56,7 +58,9 @@ public class XML_Reader : MonoBehaviour
 
     }
 
-    // getteur du tableau
+    /// <summary>
+    /// getteur du tableau
+    /// <summary>
     public virtual Question[] getListQuestion
     {
         get {return listQuestions;}

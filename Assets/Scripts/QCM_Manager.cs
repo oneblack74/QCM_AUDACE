@@ -17,18 +17,23 @@ public class QCM_Manager : MonoBehaviour
     public GameObject btnValider;
     public bool isBtnValider = true;
     
+    /// <summary>
+    /// fonction start
+    /// <summary>
     void Start()
     {
         // parser le fichier xml
         xML_Reader.InitListQuestion();
         listQuestions = xML_Reader.getListQuestion;
         // afficher la première question
-        updateTitle();
+        UpdateTitle();
         ShowQuestion();
     }
 
 
-
+    /// <summary>
+    /// afficher les réponses
+    /// <summary>
     void ShowQuestion()
     {
         // effacer les anciens toggles de réponse
@@ -53,20 +58,26 @@ public class QCM_Manager : MonoBehaviour
         }
     }
 
-    // modifier le titre de la question
-    public void updateTitle()
+    /// <summary>
+    /// modifier le titre de la question
+    /// <summary>
+    public void UpdateTitle()
     {        
         title.text = "Question " + (id+1) + ":\n" + listQuestions[id].title;
     }
 
-    // changer l'indice de la question
-    private void indSuiv()
+    /// <summary>
+    /// changer l'indice de la question
+    /// <summary>
+    private void IndSuiv()
     {
         if (listQuestions.Length-1 > id) id++;
     }
 
-    // vérifier si on a eu bon à la question
-    private bool testAnswerCorrect()
+    /// <summary>
+    /// vérifier si on a eu bon à la question
+    /// <summary>
+    private bool TestAnswerCorrect()
     {
         bool test = true;
 
@@ -89,8 +100,10 @@ public class QCM_Manager : MonoBehaviour
         return test;
     }
 
-    // afficher la phenetre de résultat
-    private void windowEnd()
+    /// <summary>
+    /// afficher la phenetre de résultat
+    /// <summary>
+    private void WindowEnd()
     {
         // effacer les anciens toggles de réponse
         foreach (Transform child in answersPanel)
@@ -107,8 +120,10 @@ public class QCM_Manager : MonoBehaviour
         else result.GetComponent<TextMeshProUGUI>().text = "Vous avez répondu juste à " + nbAnswerCorrect + " question sur " + listQuestions.Length + ".";
     }
 
-    // met en vert les réponses correct
-    private void showAnswersCorrect()
+    /// <summary>
+    /// met en vert les réponses correct
+    /// <summary>
+    private void ShowAnswersCorrect()
     {
         GameObject answerToggles = GameObject.Find("Answers");
         for (int i = 0; i < answerToggles.transform.childCount; i++)
@@ -127,30 +142,34 @@ public class QCM_Manager : MonoBehaviour
 
     }
 
-    // commande pour le bouton valider
+    /// <summary>
+    /// commande pour le bouton valider
+    /// <summary>
     public void Valider()
     {
-        if (listQuestions.Length-1 <= id && !isBtnValider) windowEnd();
+        if (listQuestions.Length-1 <= id && !isBtnValider) WindowEnd();
         else 
         {
             if (!isBtnValider) 
             {
-                bool test = testAnswerCorrect();
+                bool test = TestAnswerCorrect();
                 if (test) nbAnswerCorrect++;
-                indSuiv();
-                updateTitle();
+                IndSuiv();
+                UpdateTitle();
                 ShowQuestion();
                 isBtnValider = true;
             }
             else
             {
-                showAnswersCorrect();
+                ShowAnswersCorrect();
                 isBtnValider = false;
             }
         }
     }
 
-    // commande pour le bouton quitter
+    /// <summary>
+    /// commande pour le bouton quitter
+    /// <summary>
     public void Quitter()
     {
         Application.Quit();
